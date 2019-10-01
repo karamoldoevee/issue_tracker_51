@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ issue.summary }}{% endblock %}
+
+{% block menu %}
+    <li><a href="{% url 'issue_update' issue.pk %}">Обновить</a></li>
+    <li><a href="{% url 'issue_delete' issue.pk %}">Удалить</a></li>
+{% endblock %}
+
+{% block content %}
+    <h1>{{ issue.summary }}</h1>
+    <p>{{ issue.summary }} ({{ issue.status|default_if_none:'Без категории' }})
+            at {{ issue.created_at|date:'d.m.Y H:i:s' }}</p>
+    <div class="pre">{{ issue.description }}</div>
+{% endblock %}

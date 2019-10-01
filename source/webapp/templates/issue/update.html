@@ -1,0 +1,15 @@
+ 
+{% extends 'base.html' %}
+
+{% block title %}Обновить Задачу{% endblock %}
+
+{% block menu %}
+    <li><a href="{% url 'issue_view' issue.pk %}">Подробнее</a></li>
+{% endblock %}
+
+{% block content %}
+    <h1>Обновить Задачу</h1>
+    <form method="POST" action="{% url 'issue_update' issue.pk %}">
+        {% include 'partial/issue_form.html' with button_text="Update" %}
+    </form>
+{% endblock %}

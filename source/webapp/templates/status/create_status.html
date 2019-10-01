@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Создать Статус{% endblock %}
+
+{% block menu %}
+    <li><a href="{% url 'status_view'  %}">Статусы</a></li>
+{% endblock %}
+
+{% block content %}
+    <h1>Создать Статус</h1>
+    <form method="POST" action="{% url 'status_add' %}">
+        {% include 'partial/issue_form.html' with button_text="Создать" %}
+    </form>
+{% endblock %}

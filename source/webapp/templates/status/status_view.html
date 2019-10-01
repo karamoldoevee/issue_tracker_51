@@ -1,0 +1,29 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Статусы{% endblock %}
+
+{% block menu %}
+    <li><a href="{% url 'status_add' %}">Добавить Статус</a></li>
+{% endblock %}
+
+{% block content %}
+    <h1>Статусы:</h1>
+    <hr/>
+        {% if is_paginated %}
+
+       {% include 'partial/pagination.html' %}
+
+   {% endif %}
+    {% for status in statuses %}
+        <h2>{{ status.name }}</h2>
+        <li><a href="{% url 'status_delete' status.pk %}">Удалить</a></li>
+        <li><a href="{% url 'status_update' status.pk %}">Обновить</a></li>
+        <hr/>
+    {% endfor %}
+        {% if is_paginated %}
+
+       {% include 'partial/pagination.html' %}
+
+   {% endif %}
+{% endblock %}

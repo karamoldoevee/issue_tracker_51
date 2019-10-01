@@ -1,0 +1,30 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Типы{% endblock %}
+
+
+{% block menu %}
+    <li><a href="{% url 'type_add' %}">Добавить Тип</a></li>
+{% endblock %}
+
+{% block content %}
+    <h1>Типы:</h1>
+    <hr/>
+            {% if is_paginated %}
+
+       {% include 'partial/pagination.html' %}
+
+   {% endif %}
+    {% for type in types %}
+        <h2>{{ type.name }}</h2>
+        <li><a href="{% url 'type_delete' type.pk %}">Удалить</a></li>
+        <li><a href="{% url 'type_update' type.pk %}">Обновить</a></li>
+        <hr/>
+    {% endfor %}
+            {% if is_paginated %}
+
+       {% include 'partial/pagination.html' %}
+
+   {% endif %}
+{% endblock %}

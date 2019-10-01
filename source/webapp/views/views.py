@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from webapp.forms import IssueForm, StatusForm, TypeForm
-from webapp.models import Issue, Status, Type
+from webapp.forms import IssueForm
+from webapp.models import Issue
 from django.views import View
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, DetailView
 
 
 
@@ -18,16 +18,11 @@ class IndexView(ListView):
     def get_queryset(self):
         return Issue.objects.all().order_by('-created_at')
 
+class IssueView(DetailView):
 
-class IssueView(TemplateView):
     template_name = 'issue/issue.html'
 
-    def get_context_data(self, **kwargs):
-        pk = kwargs.get('pk')
-        context = super().get_context_data(**kwargs)
-        context['issue'] = get_object_or_404(Issue, pk=pk)
-        return context
-
+    model = Issue
 
 class IssueCreateView(View):
     def get(self, request, *args, **kwargs):

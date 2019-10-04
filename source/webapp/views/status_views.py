@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from webapp.forms import StatusForm
 from webapp.models import Status
-from django.views import View
-from django.views.generic import TemplateView, ListView
+from django.views.generic import ListView
+from django.urls import reverse
+from django.views.generic.edit import CreateView
 
 
 
@@ -18,20 +19,15 @@ class StatusView(ListView):
     def get_queryset(self):
         return Status.objects.all()
 
-class StatusCreateView(View):
-    def get(self, request, *args, **kwargs):
-        form = StatusForm()
-        return render(request, 'status/create_status.html', context={'form': form, })
+class StatusCreateView(CreateView):
+    template_name = 'status/create_status.html'
 
-    def post(self, request, *args, **kwargs):
-        form = StatusForm(data=request.POST)
-        if form.is_valid():
-            status = Status.objects.create(
-                name=form.cleaned_data['name']
-            )
-            return redirect('status_view')
-        else:
-            return render(request, 'status/create_status.html', context={'form': form})
+    model = Status
+
+    fields = ['name']
+
+    def get_success_url(self):
+        return reverse('status_view')
 
 def status_update_view(request, pk):
     status = get_object_or_404(Status, pk=pk)

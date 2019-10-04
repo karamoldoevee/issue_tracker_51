@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
 from webapp.forms import IssueForm
+from django.views.generic import ListView, DetailView
+from django.views.generic.edit import CreateView
 from webapp.models import Issue
-from django.views import View
-from django.views.generic import TemplateView, ListView, DetailView
 
 
 
@@ -24,23 +25,16 @@ class IssueView(DetailView):
 
     model = Issue
 
-class IssueCreateView(View):
-    def get(self, request, *args, **kwargs):
-        form = IssueForm()
-        return render(request, 'issue/create.html', context={'form': form, })
 
-    def post(self, request, *args, **kwargs):
-        form = IssueForm(data=request.POST)
-        if form.is_valid():
-            issue = Issue.objects.create(
-                summary=form.cleaned_data['summary'],
-                description=form.cleaned_data['description'],
-                status=form.cleaned_data['status'],
-                type=form.cleaned_data['type']
-            )
-            return redirect('issue_view', pk=issue.pk)
-        else:
-            return render(request, 'issue/create.html', context={'form': form})
+class IssueCreateView(CreateView):
+    template_name = 'issue/create.html'
+
+    model = Issue
+
+    fields = ['summary', 'description', 'status', 'type']
+
+    def get_success_url(self):
+        return reverse('index')
 
 
 def issue_update_view(request, pk):

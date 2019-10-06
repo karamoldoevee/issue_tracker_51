@@ -67,11 +67,13 @@ class issue_update_view(View):
             return render(request, 'issue/update.html', context={'form': form, 'issue': issue})
 
 
-def issue_delete_view(request, pk):
-    issue = get_object_or_404(Issue, pk=pk)
-    if request.method == 'GET':
+class issue_delete_view(View):
+    def get(self, request, *args, **kwargs):
+        issue = get_object_or_404(Issue, pk=kwargs.get('pk'))
         return render(request, 'issue/delete.html', context={'issue': issue})
-    elif request.method == 'POST':
+
+    def post(self, request, *args, **kwargs):
+        issue = get_object_or_404(Issue, pk=kwargs.get('pk'))
         issue.delete()
         return redirect('index')
 

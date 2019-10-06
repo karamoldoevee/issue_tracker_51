@@ -51,10 +51,12 @@ class status_update_view(View):
         else:
             return render(request, 'status/update_status.html', context={'form': form, 'status': status})
 
-def status_delete_view(request, pk):
-    status = get_object_or_404(Status, pk=pk)
-    if request.method == 'GET':
+class status_delete_view(View):
+    def get(self, request, *args, **kwargs):
+        status = get_object_or_404(Status, pk=kwargs.get('pk'))
         return render(request, 'status/delete_status.html', context={'status': status})
-    elif request.method == 'POST':
+
+    def post(self, request, *args, **kwargs):
+        status = get_object_or_404(Status, pk=kwargs.get('pk'))
         status.delete()
         return redirect('status_view')

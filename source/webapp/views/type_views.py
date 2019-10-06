@@ -50,10 +50,12 @@ class type_update_view(View):
         else:
             return render(request, 'type/update_type.html', context={'form': form, 'type': type})
 
-def type_delete_view(request, pk):
-    type = get_object_or_404(Type, pk=pk)
-    if request.method == 'GET':
+class type_delete_view(View):
+    def get(self, request, *args, **kwargs):
+        type = get_object_or_404(Type, pk=kwargs.get('pk'))
         return render(request, 'type/delete_type.html', context={'type': type})
-    elif request.method == 'POST':
+
+    def post(self, request, *args, **kwargs):
+        type = get_object_or_404(Type, pk=kwargs.get('pk'))
         type.delete()
         return redirect('type_view')

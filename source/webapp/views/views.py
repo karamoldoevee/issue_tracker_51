@@ -7,6 +7,7 @@ from webapp.models import Issue
 
 
 
+
 class IndexView(ListView):
     template_name = 'issue/index.html'
 

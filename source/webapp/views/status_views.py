@@ -1,9 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
+from django.views import View
+from django.views.generic import ListView, CreateView
+
 from webapp.forms import StatusForm
 from webapp.models import Status
-from django.views.generic import ListView
-from django.urls import reverse
-from django.views.generic.edit import CreateView
+from django.core.paginator import Paginator
+
 
 
 
@@ -29,14 +32,32 @@ class StatusCreateView(CreateView):
     def get_success_url(self):
         return reverse('status_view')
 
-def status_update_view(request, pk):
-    status = get_object_or_404(Status, pk=pk)
-    if request.method == 'GET':
+# def status_update_view(request, pk):
+#     status = get_object_or_404(Status, pk=pk)
+#     if request.method == 'GET':
+#         form = StatusForm(data={
+#             'name': status.name
+#         })
+#         return render(request, 'status/update_status.html', context={'form': form, 'status': status})
+#     elif request.method == 'POST':
+#         form = StatusForm(data=request.POST)
+#         if form.is_valid():
+#             status.name = form.cleaned_data['name']
+#             status.save()
+#             return redirect('status_view')
+#         else:
+#             return render(request, 'status/update_status.html', context={'form': form, 'status': status})
+
+class status_update_view(View):
+    def get(self, request, *args, **kwargs):
+        status = get_object_or_404(Status, pk=kwargs.get('pk'))
         form = StatusForm(data={
             'name': status.name
         })
         return render(request, 'status/update_status.html', context={'form': form, 'status': status})
-    elif request.method == 'POST':
+
+    def post(self, request, *args, **kwargs):
+        status = get_object_or_404(Status, pk=kwargs.get('pk'))
         form = StatusForm(data=request.POST)
         if form.is_valid():
             status.name = form.cleaned_data['name']

@@ -32,21 +32,6 @@ class StatusCreateView(CreateView):
     def get_success_url(self):
         return reverse('status_view')
 
-# def status_update_view(request, pk):
-#     status = get_object_or_404(Status, pk=pk)
-#     if request.method == 'GET':
-#         form = StatusForm(data={
-#             'name': status.name
-#         })
-#         return render(request, 'status/update_status.html', context={'form': form, 'status': status})
-#     elif request.method == 'POST':
-#         form = StatusForm(data=request.POST)
-#         if form.is_valid():
-#             status.name = form.cleaned_data['name']
-#             status.save()
-#             return redirect('status_view')
-#         else:
-#             return render(request, 'status/update_status.html', context={'form': form, 'status': status})
 
 class status_update_view(View):
     def get(self, request, *args, **kwargs):

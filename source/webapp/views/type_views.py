@@ -1,9 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
+from django.views import View
+from django.views.generic import ListView, CreateView
+
 from webapp.forms import TypeForm
 from webapp.models import Type
-from django.views.generic import ListView
-from django.urls import reverse
-from django.views.generic.edit import CreateView
+from django.core.paginator import Paginator
 
 
 
@@ -29,19 +31,22 @@ class TypeCreateView(CreateView):
     def get_success_url(self):
         return reverse('type_view')
 
-def type_update_view(request, pk):
-    type = get_object_or_404(Type, pk=pk)
-    if request.method == 'GET':
+
+class type_update_view(View):
+    def get(self, request, *args, **kwargs):
+        type = get_object_or_404(Type, pk=kwargs.get('pk'))
         form = TypeForm(data={
             'name': type.name
         })
         return render(request, 'type/update_type.html', context={'form': form, 'type': type})
-    elif request.method == 'POST':
+
+    def post(self, request, *args, **kwargs):
+        type = get_object_or_404(Type, pk=kwargs.get('pk'))
         form = TypeForm(data=request.POST)
         if form.is_valid():
             type.name = form.cleaned_data['name']
             type.save()
-            return redirect('type_view', pk=type.pk)
+            return redirect('type_view')
         else:
             return render(request, 'type/update_type.html', context={'form': form, 'type': type})
 

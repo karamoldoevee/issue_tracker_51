@@ -1,5 +1,5 @@
 from django.contrib import admin
-from webapp.models import Issue, Status, Type
+from webapp.models import Issue, Status, Type, Project
 
 class IssueAdmin(admin.ModelAdmin):
     list_display = ['pk', 'summary', 'description', 'status', 'type', 'created_at']
@@ -12,3 +12,4 @@ class IssueAdmin(admin.ModelAdmin):
 admin.site.register(Issue, IssueAdmin)
 admin.site.register(Status)
 admin.site.register(Type)
+admin.site.register(Project)

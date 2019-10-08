@@ -12,6 +12,8 @@ class Issue(models.Model):
 
     type = models.ForeignKey('Type', on_delete=models.PROTECT, verbose_name='Тип', related_name='articles')
 
+    project = models.ForeignKey('Project', null=True, blank=False, on_delete=models.PROTECT, verbose_name='Проект', related_name='articles')
+
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
 
     def __str__(self):
@@ -31,6 +33,18 @@ class Status(models.Model):
 class Type(models.Model):
 
     name = models.CharField(max_length=20, verbose_name='Название')
+
+    def __str__(self):
+        return self.name
+
+class Project(models.Model):
+    name = models.CharField(max_length=20, blank=False, verbose_name='Название')
+
+    description = models.TextField(max_length=2000, blank=True, verbose_name='Описание')
+
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
+
+    updated_at = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
 
     def __str__(self):
         return self.name

@@ -10,6 +10,6 @@
 {% block content %}
     <h1>Обновить Задачу</h1>
     <form method="POST" action="{% url 'issue_update' issue.pk %}">
-        {% include 'partial/issue_form.html' with button_text="Update" %}
+        {% include 'partial/issue_form.html' with button_text=" Обновить" %}
     </form>
 {% endblock %}

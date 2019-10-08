@@ -11,7 +11,7 @@
     <h1>Вы уверены что хотите удалить "{{ issue }}"?</h1>
     <form method="POST" action="{% url 'issue_delete' issue.pk %}" class="text-center">
         {% csrf_token %}
-        <p><input type="submit" value="Дв"></p>
+        <p><input type="submit" value="Да"></p>
         <p><a href="{% url 'issue_view' issue.pk %}">Нет</a></p>
     </form>
 {% endblock %}

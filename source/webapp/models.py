@@ -17,6 +17,10 @@ class Issue(models.Model):
     def __str__(self):
         return self.summary
 
+class Meta:
+    verbose_name = 'Краткое описание'
+    verbose_plural_name = 'Краткое описание'
+
 class Status(models.Model):
 
     name = models.CharField(max_length=20, verbose_name='Название')

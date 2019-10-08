@@ -74,8 +74,6 @@ class issue_update_view(UpdateView):
 
     fields = ['summary', 'description', 'status', 'type']
 
-
-
     def get_success_url(self):
         return reverse('issue_view', kwargs={'pk': self.object.pk})
 

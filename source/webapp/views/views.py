@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views import View
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from webapp.forms import IssueForm
 from webapp.models import Issue
@@ -74,19 +74,22 @@ class issue_update_view(UpdateView):
 
     fields = ['summary', 'description', 'status', 'type']
 
+    context_object_name = 'issue'
+
     def get_success_url(self):
         return reverse('issue_view', kwargs={'pk': self.object.pk})
 
+class issue_delete_view(DeleteView):
 
-class issue_delete_view(View):
-    def get(self, request, *args, **kwargs):
-        issue = get_object_or_404(Issue, pk=kwargs.get('pk'))
-        return render(request, 'issue/delete.html', context={'issue': issue})
+    template_name = 'issue/delete.html'
 
-    def post(self, request, *args, **kwargs):
-        issue = get_object_or_404(Issue, pk=kwargs.get('pk'))
-        issue.delete()
-        return redirect('index')
+    model = Issue
+
+    context_object_name = 'issue'
+
+    success_url = reverse_lazy('index')
+
+
 
 
 

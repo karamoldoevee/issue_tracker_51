@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views import View
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from webapp.forms import StatusForm
 from webapp.models import Status
@@ -44,12 +44,12 @@ class status_update_view(UpdateView):
         return reverse('status_view')
 
 
-class status_delete_view(View):
-    def get(self, request, *args, **kwargs):
-        status = get_object_or_404(Status, pk=kwargs.get('pk'))
-        return render(request, 'status/delete_status.html', context={'status': status})
+class status_delete_view(DeleteView):
 
-    def post(self, request, *args, **kwargs):
-        status = get_object_or_404(Status, pk=kwargs.get('pk'))
-        status.delete()
-        return redirect('status_view')
+    template_name = 'status/delete_status.html'
+
+    model = Status
+
+    context_object_name = 'status'
+
+    success_url = reverse_lazy('status_view')

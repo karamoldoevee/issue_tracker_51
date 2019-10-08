@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views import View
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from webapp.forms import TypeForm
 from webapp.models import Type
@@ -42,12 +42,12 @@ class type_update_view(UpdateView):
     def get_success_url(self):
         return reverse('type_view')
 
-class type_delete_view(View):
-    def get(self, request, *args, **kwargs):
-        type = get_object_or_404(Type, pk=kwargs.get('pk'))
-        return render(request, 'type/delete_type.html', context={'type': type})
+class status_delete_view(DeleteView):
 
-    def post(self, request, *args, **kwargs):
-        type = get_object_or_404(Type, pk=kwargs.get('pk'))
-        type.delete()
-        return redirect('type_view')
+    template_name = 'type/delete_type.html'
+
+    model = Type
+
+    context_object_name = 'type'
+
+    success_url = reverse_lazy('type_view')

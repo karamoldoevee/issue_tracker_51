@@ -10,7 +10,7 @@ from django.core.paginator import Paginator
 
 
 
-class IndexView(ListView):
+class ProjectIndexView(ListView):
     template_name = 'project/index.html'
 
     context_object_name = 'projects'

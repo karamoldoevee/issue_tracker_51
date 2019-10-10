@@ -17,7 +17,7 @@ class ProjectIndexView(ListView):
 
     model = Project
 
-    ordering = ['-created_at']
+    ordering = ['created_at']
 
     paginate_by = 5
 

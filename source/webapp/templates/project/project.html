@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}{{ project.name }}{% endblock %}
+
+{% block menu %}
+    <li><a href="{% url 'project_update' project.pk %}">Обновить</a></li>
+    <li><a href="{% url 'project_delete' project.pk %}">Удалить</a></li>
+{% endblock %}
+
+{% block content %}
+    <h1>{{ project.name }}</h1>
+    <p>{{ issue.summary }}</p>
+    <div class="pre">{{ project.description }}</div>
+{% endblock %}
+
+

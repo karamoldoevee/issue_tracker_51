@@ -11,7 +11,7 @@
 {% block content %}
     <h1>{{ project.name }}</h1>
     <p>Создан {{ project.created_at|date:'d.m.Y H:i:s' }}</p>
-    <div class="pre">{{ project.description }}</div>
+    <div class="pre"><h3>Описание:</h3>{{ project.description }}</div>
     <hr/>
     <h3>Задачи:</h3>
     {% if is_paginated %}

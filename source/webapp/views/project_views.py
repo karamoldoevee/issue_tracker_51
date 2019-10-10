@@ -36,7 +36,7 @@ class ProjectCreateView(CreateView):
 
     model = Project
 
-    fields = ['name']
+    fields = ['name', 'description']
 
     def get_success_url(self):
         return reverse('project_index')

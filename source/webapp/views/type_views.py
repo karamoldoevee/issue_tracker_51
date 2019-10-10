@@ -42,7 +42,7 @@ class type_update_view(UpdateView):
     def get_success_url(self):
         return reverse('type_view')
 
-class status_delete_view(DeleteView):
+class type_delete_view(DeleteView):
 
     template_name = 'type/delete_type.html'
 

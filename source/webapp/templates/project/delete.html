@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}Удалить Проект{% endblock %}
+
+{% block menu %}
+    <li><a href="{% url 'project_view' project.pk %}">Подробнее</a></li>
+{% endblock %}
+
+{% block content %}
+    <h1>Вы уверены что хотите удалить "{{ project }}"?</h1>
+    <form method="POST" action="{% url 'project_delete' project.pk %}" class="text-center">
+        {% csrf_token %}
+        <p><input type="submit" value="Да"></p>
+        <p><a href="{% url 'project_view' project.pk %}">Нет</a></p>
+    </form>
+{% endblock %}

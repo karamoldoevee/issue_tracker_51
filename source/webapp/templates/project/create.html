@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}Создать Проект{% endblock %}
+
+{% block content %}
+    <h1>Создать Проект</h1>
+    <form method="POST" action="{% url 'project_add' %}">
+        {% include 'partial/issue_form.html' with button_text="Create" %}
+    </form>
+{% endblock %}

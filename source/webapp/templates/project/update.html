@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+ 
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}Обновить Проект{% endblock %}
+
+{% block menu %}
+    <li><a href="{% url 'project_view' project.pk %}">Подробнее</a></li>
+{% endblock %}
+
+{% block content %}
+    <h1>Обновить Проект</h1>
+    <form method="POST" action="{% url 'project_update' projec.pk %}">
+        {% include 'partial/issue_form.html' with button_text=" Обновить" %}
+    </form>
+{% endblock %}

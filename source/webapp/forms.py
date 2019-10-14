@@ -24,3 +24,7 @@ class TypeForm(forms.Form):
 
 class ProjectForm(forms.Form):
     name = forms.CharField(max_length=20, label='Проект', required=True)
+
+class SimpleSearchForm(forms.Form):
+
+    search = forms.CharField(max_length=100, required=False, label="Найти")

@@ -2,11 +2,11 @@
 
     <span class="step-links">
 
-        <a href="?page=1">&laquo; В начало</a>
+        <a href="?{% if query %}{{ query }}&{% endif %}page=1">&laquo; В начало</a>
 
         {% if page_obj.has_previous %}
 
-            <a href="?page={{ page_obj.previous_page_number }}">Назад</a>
+            <a href="?{% if query %}{{ query }}&{% endif %}page={{ page_obj.previous_page_number }}">Назад</a>
 
         {% else %}
 
@@ -26,7 +26,7 @@
 
         {% if page_obj.has_next %}
 
-            <a href="?page={{ page_obj.next_page_number }}">Далее</a>
+            <a href="?{% if query %}{{ query }}&{% endif %}page={{ page_obj.next_page_number }}">Далее</a>
 
         {% else %}
 
@@ -34,8 +34,18 @@
 
         {% endif %}
 
-        <a href="?page={{ page_obj.paginator.num_pages }}">В конец &raquo;</a>
+        <a href="?{% if query %}{{ query }}&{% endif %}page={{ paginator.num_pages }}">В конец &raquo;</a>
 
     </span>
+
+    <div>
+        {% for page in paginator.page_range %}
+            {% if page_obj.number == page %}
+                <span class="page-active">{{ page }}</span>
+            {% else %}
+                <a href="?{% if query %}{{ query }}&{% endif %}page={{ page }}">{{ page }}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
 
 </div>

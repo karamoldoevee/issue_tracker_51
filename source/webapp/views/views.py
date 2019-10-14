@@ -7,7 +7,6 @@ from webapp.forms import IssueForm, SimpleSearchForm
 from webapp.models import Issue
 from django.core.paginator import Paginator
 from django.db.models import Q
-
 from django.utils.http import urlencode
 
 

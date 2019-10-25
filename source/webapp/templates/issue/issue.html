@@ -3,8 +3,10 @@
 {% block title %}{{ issue.summary }}{% endblock %}
 
 {% block menu %}
+    {% if request.user.is_authenticated %}
     <li><a href="{% url 'webapp:issue_update' issue.pk %}">Обновить</a></li>
     <li><a href="{% url 'webapp:issue_delete' issue.pk %}">Удалить</a></li>
+    {% endif %}
 {% endblock %}
 
 {% block content %}

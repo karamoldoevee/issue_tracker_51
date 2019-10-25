@@ -5,12 +5,16 @@
 
 
 {% block menu %}
-    <li><a href="{% url 'webapp:type_add' %}">Добавить Тип</a></li>
+    {% if request.user.is_authenticated %}
+        <li><a href="{% url 'webapp:type_add' %}">Добавить Тип</a></li>
+    {% endif %}
 {% endblock %}
 
 {% block content %}
     <h1>Типы:</h1>
     <hr/>
+    <h2 style="color: darkblue">Для создания, редактирования и удаления типов войдите на сайт.</h2>
+    <hr>
             {% if is_paginated %}
 
        {% include 'partial/pagination.html' %}
@@ -18,8 +22,10 @@
    {% endif %}
     {% for type in types %}
         <h2>{{ type.name }}</h2>
-        <li><a href="{% url 'webapp:type_delete' type.pk %}">Удалить</a></li>
-        <li><a href="{% url 'webapp:type_update' type.pk %}">Обновить</a></li>
+        {% if request.user.is_authenticated %}
+            <li><a href="{% url 'webapp:type_delete' type.pk %}">Удалить</a></li>
+            <li><a href="{% url 'webapp:type_update' type.pk %}">Обновить</a></li>
+        {% endif %}
         <hr/>
     {% endfor %}
             {% if is_paginated %}

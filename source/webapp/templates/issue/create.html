@@ -4,7 +4,11 @@
 
 {% block content %}
     <h1>Создать Задачу</h1>
-    <form method="POST" action="{% url 'webapp:issue_add' %}">
+    {% if request.user.is_authenticated %}
+        <form method="POST" action="{% url 'webapp:issue_add' %}">
+    {% else %}
+        {% url 'webapp:not_allowed' issue.pk %}
+    {% endif %}
         {% include 'partial/issue_form.html' with button_text="Создать" %}
     </form>
 {% endblock %}

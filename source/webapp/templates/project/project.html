@@ -4,8 +4,10 @@
 
 {% block menu %}
     <li><a href="{% url 'webapp:project_index' %}">Проекты</a></li>
+    {% if request.user.is_authenticated %}
     <li><a href="{% url 'webapp:project_update' project.pk %}">Обновить</a></li>
     <li><a href="{% url 'webapp:project_delete' project.pk %}">Удалить</a></li>
+    {% endif %}
 {% endblock %}
 
 {% block content %}

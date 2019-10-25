@@ -16,9 +16,9 @@
             <li><a href="{% url 'webapp:index' %}">Главная страница</a></li>
             {% if request.user.is_authenticated %}
                 <li>Привет, {{ user }}!</li>
-                <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+                <li><a href="{% url 'accounts:logout' %}">Выход</a></li>
             {% else %}
-                <li><a href="{% url 'accounts:login' %}">Login</a></li>
+                <li><a href="{% url 'accounts:login' %}">Войти</a></li>
             {% endif %}
             {% block menu %}{% endblock %}
         </ul>

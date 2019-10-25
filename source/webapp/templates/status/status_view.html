@@ -4,12 +4,16 @@
 {% block title %}Статусы{% endblock %}
 
 {% block menu %}
-    <li><a href="{% url 'webapp:status_add' %}">Добавить Статус</a></li>
+    {% if request.user.is_authenticated %}
+        <li><a href="{% url 'webapp:status_add' %}">Добавить Статус</a></li>
+    {% endif %}
 {% endblock %}
 
 {% block content %}
     <h1>Статусы:</h1>
     <hr/>
+    <h2 style="color: darkblue">Для создания, редактирования и удаления статусов войдите на сайт.</h2>
+    <hr>
         {% if is_paginated %}
 
        {% include 'partial/pagination.html' %}
@@ -17,8 +21,10 @@
    {% endif %}
     {% for status in statuses %}
         <h2>{{ status.name }}</h2>
-        <li><a href="{% url 'webapp:status_delete' status.pk %}">Удалить</a></li>
-        <li><a href="{% url 'webapp:status_update' status.pk %}">Обновить</a></li>
+        {% if request.user.is_authenticated %}
+            <li><a href="{% url 'webapp:status_delete' status.pk %}">Удалить</a></li>
+            <li><a href="{% url 'webapp:status_update' status.pk %}">Обновить</a></li>
+        {% endif %}
         <hr/>
     {% endfor %}
         {% if is_paginated %}

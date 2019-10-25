@@ -12,8 +12,11 @@
 {% block content %}
     <h1>Статусы:</h1>
     <hr/>
-    <h2 style="color: darkblue">Для создания, редактирования и удаления статусов войдите на сайт.</h2>
-    <hr>
+    {% if request.user.is_authenticated %}
+    {% else %}
+        <h2 style="color: darkblue">Для создания, редактирования и удаления статусов войдите на сайт.</h2>
+    <   hr>
+    {% endif %}
         {% if is_paginated %}
 
        {% include 'partial/pagination.html' %}

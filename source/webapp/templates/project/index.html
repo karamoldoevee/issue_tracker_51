@@ -10,8 +10,11 @@
 {% block content %}
     <h1>Проекты:</h1>
     <hr/>
+    {% if request.user.is_authenticated %}
+    {% else %}
     <h2 style="color: darkblue">Для создания, редактирования и удаления проектов войдите на сайт.</h2>
-    <hr>
+        <hr>
+    {% endif %}
     {% include 'partial/simple_search.html' %}
     {% if is_paginated %}
 

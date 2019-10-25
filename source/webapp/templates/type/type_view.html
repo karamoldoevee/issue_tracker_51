@@ -13,8 +13,11 @@
 {% block content %}
     <h1>Типы:</h1>
     <hr/>
-    <h2 style="color: darkblue">Для создания, редактирования и удаления типов войдите на сайт.</h2>
+    {% if request.user.is_authenticated %}
+    {% else %}
+        <h2 style="color: darkblue">Для создания, редактирования и удаления типов войдите на сайт.</h2>
     <hr>
+    {% endif %}
             {% if is_paginated %}
 
        {% include 'partial/pagination.html' %}

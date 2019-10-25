@@ -19,8 +19,11 @@
        {% include 'partial/pagination.html' %}
 
    {% endif %}
-    <h2 style="color: darkblue">Для создания, редактирования и удаления статей войдите на сайт.</h2>
-    <hr>
+    {% if request.user.is_authenticated %}
+    {% else %}
+        <h2 style="color: darkblue">Для создания, редактирования и удаления статей войдите на сайт.</h2>
+        <hr>
+    {% endif %}
     {% for issue in issues %}
         <h2>{{ issue.summary }}</h2>
         <p>{{ issue.summary }} ({{ issue.status|default_if_none:'Без категории' }})

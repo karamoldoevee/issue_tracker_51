@@ -4,7 +4,7 @@
 {% block title %}Статусы{% endblock %}
 
 {% block menu %}
-    <li><a href="{% url 'status_add' %}">Добавить Статус</a></li>
+    <li><a href="{% url 'webapp:status_add' %}">Добавить Статус</a></li>
 {% endblock %}
 
 {% block content %}
@@ -17,8 +17,8 @@
    {% endif %}
     {% for status in statuses %}
         <h2>{{ status.name }}</h2>
-        <li><a href="{% url 'status_delete' status.pk %}">Удалить</a></li>
-        <li><a href="{% url 'status_update' status.pk %}">Обновить</a></li>
+        <li><a href="{% url 'webapp:status_delete' status.pk %}">Удалить</a></li>
+        <li><a href="{% url 'webapp:status_update' status.pk %}">Обновить</a></li>
         <hr/>
     {% endfor %}
         {% if is_paginated %}

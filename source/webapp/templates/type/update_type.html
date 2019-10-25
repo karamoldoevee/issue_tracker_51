@@ -3,12 +3,12 @@
 {% block title %}Обновить Тип{% endblock %}
 
 {% block menu %}
-    <li><a href="{% url 'type_view'%}">Типы</a></li>
+    <li><a href="{% url 'webapp:type_view'%}">Типы</a></li>
 {% endblock %}
 
 {% block content %}
     <h1>Обновить Статус</h1>
-    <form method="POST" action="{% url 'type_update' type.pk %}">
+    <form method="POST" action="{% url 'webapp:type_update' type.pk %}">
         {% include 'partial/issue_form.html' with button_text="Update" %}
     </form>
 {% endblock %}

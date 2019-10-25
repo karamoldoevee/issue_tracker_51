@@ -2,10 +2,10 @@
 {% extends 'base.html' %}
 
 {% block menu %}
-    <li><a href="{% url 'issue_add' %}">Добавить Задачу</a></li>
-    <li><a href="{% url 'status_view'  %}">Статусы</a></li>
-    <li><a href="{% url 'type_view' %}">Типы</a></li>
-    <li><a href="{% url 'project_index' %}">Проекты</a></li>
+    <li><a href="{% url 'webapp:issue_add' %}">Добавить Задачу</a></li>
+    <li><a href="{% url 'webapp:status_view'  %}">Статусы</a></li>
+    <li><a href="{% url 'webapp:type_view' %}">Типы</a></li>
+    <li><a href="{% url 'webapp:project_index' %}">Проекты</a></li>
 {% endblock %}
 
 {% block content %}
@@ -22,9 +22,9 @@
         <p>{{ issue.summary }} ({{ issue.status|default_if_none:'Без категории' }})
             создана {{ issue.created_at|date:'d.m.Y H:i:s' }}</p>
         <p>
-            <a href="{% url 'issue_view' issue.pk %}">Подробнее.</a>
-            <a href="{% url 'issue_update' issue.pk %}">Обновить</a>
-            <a href="{% url "issue_delete" issue.pk %}">Удалить</a>
+            <a href="{% url 'webapp:issue_view' issue.pk %}">Подробнее.</a>
+            <a href="{% url 'webapp:issue_update' issue.pk %}">Обновить</a>
+            <a href="{% url "webapp:issue_delete" issue.pk %}">Удалить</a>
         </p>
         <hr/>
     {% endfor %}

@@ -4,12 +4,12 @@
 {% block title %}Обновить Проект{% endblock %}
 
 {% block menu %}
-    <li><a href="{% url 'project_view' project.pk %}">Подробнее</a></li>
+    <li><a href="{% url 'webapp:project_view' project.pk %}">Подробнее</a></li>
 {% endblock %}
 
 {% block content %}
     <h1>Обновить Проект</h1>
-    <form method="POST" action="{% url 'project_update' project.pk %}">
+    <form method="POST" action="{% url 'webapp:project_update' project.pk %}">
         {% include 'partial/issue_form.html' with button_text=" Обновить" %}
     </form>
 {% endblock %}

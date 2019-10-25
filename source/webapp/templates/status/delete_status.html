@@ -4,14 +4,14 @@
 {% block title %}Удалить Статус{% endblock %}
 
 {% block menu %}
-    <li><a href="{% url 'status_view' %}">Статусы</a></li>
+    <li><a href="{% url 'webapp:status_view' %}">Статусы</a></li>
 {% endblock %}
 
 {% block content %}
     <h1>Вы уверены что хотите удалить "{{ status }}"?</h1>
-    <form method="POST" action="{% url 'status_delete' status.pk %}" class="text-center">
+    <form method="POST" action="{% url 'webapp:status_delete' status.pk %}" class="text-center">
         {% csrf_token %}
         <p><input type="submit" value="Дв"></p>
-        <p><a href="{% url 'status_view' %}">Нет</a></p>
+        <p><a href="{% url 'webapp:status_view' %}">Нет</a></p>
     </form>
 {% endblock %}

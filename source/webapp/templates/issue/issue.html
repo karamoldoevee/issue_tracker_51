@@ -3,8 +3,8 @@
 {% block title %}{{ issue.summary }}{% endblock %}
 
 {% block menu %}
-    <li><a href="{% url 'issue_update' issue.pk %}">Обновить</a></li>
-    <li><a href="{% url 'issue_delete' issue.pk %}">Удалить</a></li>
+    <li><a href="{% url 'webapp:issue_update' issue.pk %}">Обновить</a></li>
+    <li><a href="{% url 'webapp:issue_delete' issue.pk %}">Удалить</a></li>
 {% endblock %}
 
 {% block content %}

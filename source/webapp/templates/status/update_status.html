@@ -4,12 +4,12 @@
 {% block title %}Обновить Статус{% endblock %}
 
 {% block menu %}
-    <li><a href="{% url 'status_view' %}">Статусы</a></li>
+    <li><a href="{% url 'webapp:status_view' %}">Статусы</a></li>
 {% endblock %}
 
 {% block content %}
     <h1>Обновить Статус</h1>
-    <form method="POST" action="{% url 'status_update' status.pk %}">
+    <form method="POST" action="{% url 'webapp:status_update' status.pk %}">
         {% include 'partial/issue_form.html' with button_text="Update" %}
     </form>
 {% endblock %}

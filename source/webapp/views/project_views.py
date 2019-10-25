@@ -1,11 +1,10 @@
-from django.shortcuts import render, get_object_or_404, redirect
+
 from django.urls import reverse, reverse_lazy
-from django.views import View
+
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from webapp.forms import ProjectForm, SimpleSearchForm
+from webapp.forms import SimpleSearchForm
 from webapp.models import Project
-from django.core.paginator import Paginator
 from django.db.models import Q
 from django.utils.http import urlencode
 
@@ -80,7 +79,7 @@ class ProjectCreateView(CreateView):
     fields = ['name', 'description']
 
     def get_success_url(self):
-        return reverse('project_index')
+        return reverse('webapp:project_index')
 
 
 class project_update_view(UpdateView):
@@ -91,7 +90,7 @@ class project_update_view(UpdateView):
     fields = ['name', 'description']
 
     def get_success_url(self):
-        return reverse('project_view', kwargs={'pk': self.object.pk})
+        return reverse('webapp:project_view', kwargs={'pk': self.object.pk})
 
 class project_delete_view(DeleteView):
 
@@ -101,7 +100,7 @@ class project_delete_view(DeleteView):
 
     context_object_name = 'project'
 
-    success_url = reverse_lazy('project_index')
+    success_url = reverse_lazy('webapp:project_index')
 
 
 

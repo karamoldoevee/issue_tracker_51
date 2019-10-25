@@ -13,12 +13,12 @@
 <nav class="navbar">
     <div class="container">
         <ul class="menu">
-            <li><a href="{% url 'index' %}">Главная страница</a></li>
+            <li><a href="{% url 'webapp:index' %}">Главная страница</a></li>
             {% if request.user.is_authenticated %}
                 <li>Привет, {{ user }}!</li>
-                <li><a href="{% url 'logout' %}">Logout</a></li>
+                <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
             {% else %}
-                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'accounts:login' %}">Login</a></li>
             {% endif %}
             {% block menu %}{% endblock %}
         </ul>

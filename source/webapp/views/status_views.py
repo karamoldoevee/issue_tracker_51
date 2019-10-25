@@ -1,11 +1,9 @@
-from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
-from django.views import View
+
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
-from webapp.forms import StatusForm
 from webapp.models import Status
-from django.core.paginator import Paginator
+
 
 
 
@@ -30,7 +28,7 @@ class StatusCreateView(CreateView):
     fields = ['name']
 
     def get_success_url(self):
-        return reverse('status_view')
+        return reverse('webapp:status_view')
 
 
 class status_update_view(UpdateView):
@@ -41,7 +39,7 @@ class status_update_view(UpdateView):
     fields = ['name']
 
     def get_success_url(self):
-        return reverse('status_view')
+        return reverse('webapp:status_view')
 
 
 class status_delete_view(DeleteView):
@@ -52,4 +50,4 @@ class status_delete_view(DeleteView):
 
     context_object_name = 'status'
 
-    success_url = reverse_lazy('status_view')
+    success_url = reverse_lazy('webapp:status_view')

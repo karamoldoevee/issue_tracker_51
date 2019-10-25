@@ -1,11 +1,9 @@
-from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
-from django.views import View
+
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
-from webapp.forms import TypeForm
 from webapp.models import Type
-from django.core.paginator import Paginator
+
 
 
 
@@ -29,7 +27,7 @@ class TypeCreateView(CreateView):
     fields = ['name']
 
     def get_success_url(self):
-        return reverse('type_view')
+        return reverse('webapp:type_view')
 
 
 class type_update_view(UpdateView):
@@ -40,7 +38,7 @@ class type_update_view(UpdateView):
     fields = ['name']
 
     def get_success_url(self):
-        return reverse('type_view')
+        return reverse('webapp:type_view')
 
 class type_delete_view(DeleteView):
 
@@ -50,4 +48,4 @@ class type_delete_view(DeleteView):
 
     context_object_name = 'type'
 
-    success_url = reverse_lazy('type_view')
+    success_url = reverse_lazy('webapp:type_view')

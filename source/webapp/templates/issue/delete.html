@@ -4,14 +4,14 @@
 {% block title %}Удалить Задачу{% endblock %}
 
 {% block menu %}
-    <li><a href="{% url 'issue_view' issue.pk %}">Подробнее</a></li>
+    <li><a href="{% url 'webapp:issue_view' issue.pk %}">Подробнее</a></li>
 {% endblock %}
 
 {% block content %}
     <h1>Вы уверены что хотите удалить "{{ issue }}"?</h1>
-    <form method="POST" action="{% url 'issue_delete' issue.pk %}" class="text-center">
+    <form method="POST" action="{% url 'webapp:issue_delete' issue.pk %}" class="text-center">
         {% csrf_token %}
         <p><input type="submit" value="Да"></p>
-        <p><a href="{% url 'issue_view' issue.pk %}">Нет</a></p>
+        <p><a href="{% url 'webapp:issue_view' issue.pk %}">Нет</a></p>
     </form>
 {% endblock %}

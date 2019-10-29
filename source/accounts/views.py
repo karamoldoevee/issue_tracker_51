@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import render, redirect, reverse
 from .forms import UserCreationForm, UserChangeForm, PasswordChangeForm
-from django.views.generic import DetailView, UpdateView
+from django.views.generic import DetailView, UpdateView, ListView
 from django.contrib.auth.models import User
 
 
@@ -109,6 +109,18 @@ class UserPasswordChangeView(UserPassesTestMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('accounts:login')
+
+class UserView(ListView):
+    template_name = 'user_view.html'
+
+    context_object_name = 'users'
+
+    paginate_by = 5
+
+    paginate_orphans = 1
+
+    def get_queryset(self):
+        return User.objects.all()
 
 
 

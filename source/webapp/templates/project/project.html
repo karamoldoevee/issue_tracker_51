@@ -20,9 +20,9 @@
         {% include 'partial/pagination.html' %}
     {% endif %}
     <div class="issue-list">
-        {% for issue in issues %}
+        {% for issue in project.articles.all %}
             <div class="issue">
-                <p>{{ issue.name }} создана {{ issue.created_at|date:'d.m.Y H:i:s' }}</p>
+                <p>{{ issue.summary }} создана {{ issue.created_at|date:'d.m.Y H:i:s' }}</p>
             </div>
         {% empty %}
             <p>Нету задач.</p>

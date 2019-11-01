@@ -1,3 +1,4 @@
+from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -7,6 +8,8 @@ from webapp.models import Issue
 
 from django.db.models import Q
 from django.utils.http import urlencode
+
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 
@@ -72,7 +75,6 @@ class IssueView(DetailView):
 
     model = Issue
 
-
 class IssueCreateView(CreateView):
     template_name = 'issue/create.html'
 
@@ -80,11 +82,16 @@ class IssueCreateView(CreateView):
 
     fields = ['summary', 'description', 'status', 'type']
 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+        return super().dispatch(request, *args, **kwargs)
+
     def get_success_url(self):
-        return reverse('webapp:index')
+        return reverse('webapp:issue_view', kwargs={'pk': self.object.pk})
 
 
-class issue_update_view(UpdateView):
+class issue_update_view(LoginRequiredMixin, UpdateView):
     model = Issue
 
     template_name = 'issue/update.html'

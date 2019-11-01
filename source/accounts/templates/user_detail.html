@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
- 
+{% load staticfiles %}
 
 {% block title %}Пользователь{% endblock %}
 
@@ -21,7 +21,17 @@
 
 {% block content %}
 
-    <h1>Личный кабинет</h1>
+   <h1>Личный кабинет</h1>
+
+   {% if user_obj.profile.avatar %}
+
+       <img class="avatar" src="{{ user_obj.profile.avatar.url }}" width="250" height="250" alt="user picture">
+
+   {% else %}
+
+      <img src="{% static "images/adam.jpg" %}" alt="Заглушка" >
+
+   {% endif %}
 
     <p>Имя пользователя: {{ user_obj.username }}</p>
 
@@ -29,7 +39,15 @@
 
     <p>Фамилия: {{ user_obj.last_name }}</p>
 
+    <p>Дата рождения: {{ user_obj.profile.birth_date|date:'d.m.Y' }}</p>
+
     <p>Почта: {{ user_obj.email }}</p>
+
+    {% if user_obj.profile.github_profile %}
+
+    <p>Профиль GitHub: <a href="">{{ user_obj.profile.github_profile }}</a></p>
+
+    {% endif %}
 
 {% endblock %}
 

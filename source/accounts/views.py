@@ -1,6 +1,8 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import render, redirect, reverse
+
+from accounts.models import Profile
 from .forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.views.generic import DetailView, UpdateView, ListView
 from django.contrib.auth.models import User
@@ -59,6 +61,10 @@ def register_view(request, *args, **kwargs):
         if form.is_valid():
 
             user = form.save()
+
+            user.save()
+
+            Profile.objects.create(user=user)
 
             login(request, user)
 

@@ -39,7 +39,18 @@
 
     <p>Фамилия: {{ user_obj.last_name }}</p>
 
+    {% if user_obj.profile.birth_date %}
+
     <p>Дата рождения: {{ user_obj.profile.birth_date|date:'d.m.Y' }}</p>
+
+    {% endif %}
+
+    {% if user_obj.profile.about_yourself %}
+
+
+    <p>О себе: {{ user_obj.profile.about_yourself }}</p>
+
+    {% endif %}
 
     <p>Почта: {{ user_obj.email }}</p>
 

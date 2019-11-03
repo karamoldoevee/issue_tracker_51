@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from webapp.models import Project
 
 
 class Profile(models.Model):
@@ -20,3 +21,22 @@ class Profile(models.Model):
         verbose_name = 'Профиль'
 
         verbose_name_plural = 'Профили'
+
+class Team(models.Model):
+    user = models.OneToOneField(User, related_name='team', on_delete=models.CASCADE, verbose_name='Пользователь')
+
+    project = models.ForeignKey('webapp.Project', on_delete=models.PROTECT, verbose_name='Проект', related_name='team')
+
+    work_started = models.DateTimeField(auto_now_add=True, verbose_name='Начало работы')
+
+    work_finished = models.DateTimeField(auto_now_add=True, verbose_name='Окончание работы')
+
+    def __str__(self):
+        return self.user.get_full_name() + "'s Profile" + Project.name
+
+    class Meta:
+        verbose_name = 'Команда'
+
+        verbose_name_plural = 'Команда'
+
+

@@ -1,6 +1,4 @@
 from django.db import models
-import datetime
-from django.db import models
 
 class Issue(models.Model):
 

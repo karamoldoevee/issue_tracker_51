@@ -10,6 +10,7 @@ from django.db.models import Q
 from django.utils.http import urlencode
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import UserPassesTestMixin
 
 
 
@@ -75,23 +76,21 @@ class IssueView(DetailView):
 
     model = Issue
 
-class IssueCreateView(CreateView):
+class IssueCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     template_name = 'issue/create.html'
 
     model = Issue
 
     fields = ['summary', 'description', 'status', 'type']
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect('accounts:login')
-        return super().dispatch(request, *args, **kwargs)
+    def test_func(self):
+        return self.request.user.username
 
     def get_success_url(self):
         return reverse('webapp:issue_view', kwargs={'pk': self.object.pk})
 
 
-class issue_update_view(LoginRequiredMixin, UpdateView):
+class issue_update_view(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Issue
 
     template_name = 'issue/update.html'
@@ -100,10 +99,14 @@ class issue_update_view(LoginRequiredMixin, UpdateView):
 
     context_object_name = 'issue'
 
+    def test_func(self):
+        return self.request.user.username
+
     def get_success_url(self):
+
         return reverse('webapp:issue_view', kwargs={'pk': self.object.pk})
 
-class issue_delete_view(DeleteView):
+class issue_delete_view(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     template_name = 'issue/delete.html'
 
@@ -112,6 +115,9 @@ class issue_delete_view(DeleteView):
     context_object_name = 'issue'
 
     success_url = reverse_lazy('webapp:index')
+
+    def test_func(self):
+        return self.request.user.username
 
 
 

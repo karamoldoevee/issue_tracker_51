@@ -32,7 +32,7 @@ class Team(models.Model):
     work_finished = models.DateTimeField(auto_now_add=True, verbose_name='Окончание работы')
 
     def __str__(self):
-        return self.user.get_full_name() + "'s Profile" + Project.name
+        return self.user.get_full_name()
 
     class Meta:
         verbose_name = 'Команда'

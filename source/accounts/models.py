@@ -23,7 +23,7 @@ class Profile(models.Model):
         verbose_name_plural = 'Профили'
 
 class Team(models.Model):
-    user = models.OneToOneField(User, related_name='team', on_delete=models.CASCADE, verbose_name='Пользователь')
+    user = models.ForeignKey(User, related_name='team', on_delete=models.CASCADE, verbose_name='Пользователь')
 
     project = models.ForeignKey('webapp.Project', on_delete=models.PROTECT, verbose_name='Проект', related_name='team')
 

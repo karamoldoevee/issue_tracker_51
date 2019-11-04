@@ -85,6 +85,9 @@ class UserChangeForm(forms.ModelForm):
 
         return super().get_initial_for_field(field, field_name)
 
+    def clean_github_profile(self):
+        pass
+
     class Meta:
 
         model = User

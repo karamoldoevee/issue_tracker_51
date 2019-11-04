@@ -56,7 +56,7 @@
 
     {% if user_obj.profile.github_profile %}
 
-    <p>Профиль GitHub: <a href="">{{ user_obj.profile.github_profile }}</a></p>
+    <p>Профиль GitHub: <a href="{{ user_obj.profile.github_profile }}">{{ user_obj.profile.github_profile }}</a></p>
 
     {% endif %}
 

@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -80,7 +81,13 @@ class IssueCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 
     model = Issue
 
-    fields = ['summary', 'description', 'status', 'type']
+    fields = ['summary', 'description', 'status', 'type', 'assigned_to']
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.created_by = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
 
     def test_func(self):
         return self.request.user.username

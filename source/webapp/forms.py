@@ -1,29 +1,35 @@
 from django import forms
-from django.forms import widgets
 
-from webapp.models import Issue, Status, Type, Project
-
-
-class IssueForm(forms.Form):
-    summary = forms.CharField(max_length=200, label='Summary', required=True)
-    description = forms.CharField(max_length=3000, label='Description', required=True,
-                           widget=widgets.Textarea)
-    status = forms.ModelChoiceField(queryset=Status.objects.all(), required=False, label='Status',
-                                      empty_label=None)
-    type = forms.ModelChoiceField(queryset=Type.objects.all(), required=False, label='Type',
-                                    empty_label=None)
-    project = forms.ModelChoiceField(queryset=Project.objects.all(), required=False, label='Project',
-                                  empty_label=None)
+from webapp.models import Issue,Status, Type, Project
+from django.forms import Select
 
 
-class StatusForm(forms.Form):
-    name = forms.CharField(max_length=20, label='Статус', required=True)
+class IssueForm(forms.ModelForm):
+    assigned_to = forms.ModelChoiceField(widget=Select, required=False, empty_label=None, queryset=None)
 
-class TypeForm(forms.Form):
-    name = forms.CharField(max_length=20, label='Тип', required=True)
+    class Meta:
+        model = Issue
+        fields = ['summary', 'description', 'status', 'type', 'project', 'assigned_to']
+        exclude = ['created_at', 'created_by']
 
-class ProjectForm(forms.Form):
-    name = forms.CharField(max_length=20, label='Проект', required=True)
+    def clean_summary(self):
+        title = self.cleaned_data['summary']
+
+class StatusForm(forms.ModelForm):
+    class Meta:
+        model = Status
+        fields = ['name']
+
+class TypeForm(forms.ModelForm):
+    class Meta:
+        model = Type
+        fields = ['name']
+
+class ProjectForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ['name', 'description']
+        exclude = ['created_at', 'updated_at']
 
 class SimpleSearchForm(forms.Form):
 

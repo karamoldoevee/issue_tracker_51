@@ -14,8 +14,12 @@
     <p>{{ issue.summary }}({{ issue.status|default_if_none:'Без категории' }})
             создана {{ issue.created_at|date:'d.m.Y H:i:s' }}</p>
     <div class="pre">{{ issue.description }}</div>
+    <hr>
     <div class="pre" style="margin-top: 20px">Тип: {{ issue.type }}</div>
     <div class="pre" style="margin-top: 5px">{{ issue.project }}</div>
+    <hr>
+    <div class="pre" style="margin-top: 5px">Автор: {{ issue.created_by }}</div>
+    <div class="pre" style="margin-top: 5px">Испольнитель: {{ issue.assigned_to }}</div>
 {% endblock %}
 
 

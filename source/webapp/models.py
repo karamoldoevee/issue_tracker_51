@@ -1,4 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import User
+
+def get_admin():
+    return User.objects.get(username='admin').id
 
 class Issue(models.Model):
 
@@ -13,6 +17,12 @@ class Issue(models.Model):
     project = models.ForeignKey('Project', null=True, blank=False, on_delete=models.PROTECT, verbose_name='Проект', related_name='articles')
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
+    
+    created_by = models.ForeignKey(User, related_name='created_by', on_delete=models.CASCADE, verbose_name='Автор',
+                                   default=get_admin)
+
+    assigned_to = models.ForeignKey(User, related_name='assigned_to', on_delete=models.CASCADE, verbose_name='Исполнитель',
+                                    default=None)
 
     def __str__(self):
         return self.summary

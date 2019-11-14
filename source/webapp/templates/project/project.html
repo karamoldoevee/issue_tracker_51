@@ -32,11 +32,14 @@
         <div class="user-list">
         {% for user in project.team.all %}
             <div class="user">
+                {% if user.work_finished == None %}
                     <p>{{ user }} <strong> Начал работу:</strong> {{ user.work_started|date:'d.m.Y H:i:s' }}</p>
                     <p class="user-links">
                         <a href="{% url 'webapp:user_add' project.pk %}">Добавить</a>
                         <a href="{% url 'webapp:user_delete' project.pk %}">Удалить</a>
                     </p>
+                {% else %}
+                {% endif %}
             </div>
         {% empty %}
             <p>No comments yet.</p>

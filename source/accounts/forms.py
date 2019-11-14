@@ -150,9 +150,3 @@ class TeamForm(forms.ModelForm):
         fields = ['user', 'project', 'work_finished']
         exclude = ['work_started']
 
-class TeamProjectForm(forms.ModelForm):
-    class Meta:
-        model = Team
-        fields = ['user']
-        exclude= ['project', 'work_started', 'work_finished']
-

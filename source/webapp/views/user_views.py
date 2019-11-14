@@ -1,46 +1,48 @@
 from accounts.models import Team
 from django.urls import reverse, reverse_lazy
 
-from django.views.generic import CreateView, DeleteView
-from accounts.forms import TeamProjectForm
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
 
+class UserProjectView(ListView):
+    template_name = 'user/project_user_view.html'
 
-class UserForProjectAddView(CreateView):
+    context_object_name = 'users'
+
+    paginate_by = 5
+
+    paginate_orphans = 1
+
+    def get_queryset(self):
+        return Team.objects.all()
+
+class UserProjectCreateView(CreateView):
+    template_name = 'user/project_user_add.html'
+
     model = Team
-    template_name = 'project/project_user_add.html'
-    form_class = TeamProjectForm
 
-    # def dispatch(self, request, *args, **kwargs):
-    #     self.project = self.get_project()
-    #     return super().dispatch(request, *args, **kwargs)
-    #
-    # def form_valid(self, form):
-    #     self.object = self.project.team.user.create
-    #     return redirect('webapp:project_view', pk=self.project.pk)
-    #
-    # def get_project(self):
-    #     project_pk = self.kwargs.get('pk')
-    #     return get_object_or_404(Project, pk=project_pk)
-
-class UserAddView(CreateView):
-    model = Team
-    template_name = 'project/project_user_add.html'
-
-    # def get_form_kwargs(self):
-    #     kwargs = super().get_form_kwargs()
-    #     kwargs['user'] = self.request.user
-    #     return kwargs
-    #
-    # def form_valid(self, form):
-    #     form.instance.author = self.request.user
-    #     return super().form_valid(form)
+    fields = ['user', 'project', 'work_finished']
 
     def get_success_url(self):
-        return reverse('webapp:project_view', kwargs={'pk': self.object.project.pk})
+        return reverse('webapp:user_view')
 
-class UserDeleteView(DeleteView):
+
+class UserProjectUpdateView(UpdateView):
     model = Team
+
+    template_name = 'user/project_user_update.html'
+
+    fields = ['user', 'project', 'work_finished']
+
+    def get_success_url(self):
+        return reverse('webapp:user_view')
+
+class UserProjectDeleteView(DeleteView):
+
+    template_name = 'user/project_user_delete.html'
+
+    model = Team
+
     context_object_name = 'user'
-    template_name = 'project/project_user_delete.html'
-    success_url = reverse_lazy('webapp:project_view')
+
+    success_url = reverse_lazy('webapp:user_view')

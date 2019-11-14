@@ -1,0 +1,15 @@
+ 
+{% extends 'base.html' %}
+
+{% block title %}Обновить Пользователя{% endblock %}
+
+{% block menu %}
+    <li><a href="{% url 'webapp:user_view' %}">Пользователи</a></li>
+{% endblock %}
+
+{% block content %}
+    <h1>Обновить Статус</h1>
+    <form method="POST" action="{% url 'webapp:user_update' user.pk %}">
+        {% include 'partial/issue_form.html' with button_text="Update" %}
+    </form>
+{% endblock %}

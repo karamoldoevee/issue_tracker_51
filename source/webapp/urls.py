@@ -4,7 +4,7 @@ from .views.issue_views import IndexView, IssueView, IssueCreateView, IssueUpdat
 from .views.status_views import StatusView, StatusCreateView, StatusUpdateView, StatusDeleteView
 from .views.type_views import  TypeView, TypeCreateView, TypeUpdateView, TypeDeleteView
 from .views.project_views import ProjectIndexView, ProjectView, ProjectCreateView, ProjectUpdateView, ProjectDeleteView
-from .views.user_views import UserAddView, UserDeleteView
+from .views.user_views import UserProjectView, UserProjectCreateView, UserProjectUpdateView, UserProjectDeleteView
 
 app_name = 'webapp'
 
@@ -27,6 +27,8 @@ urlpatterns = [
     path('project/add/', ProjectCreateView.as_view(), name='project_add'),
     path('project/<int:pk>/update/', ProjectUpdateView.as_view(), name='project_update'),
     path('project/<int:pk>/delete/', ProjectDeleteView.as_view(), name='project_delete'),
-    path('project/<int:pk>/user_add/', UserAddView, name='user_add'),
-    path('project/<int:pk>/user_delete/', UserDeleteView, name='user_delete'),
+    path('user/view/', UserProjectView.as_view(), name='user_view'),
+    path('user/add/', UserProjectCreateView.as_view(), name='user_add'),
+    path('user/<int:pk>/update/', UserProjectUpdateView.as_view(), name='user_update'),
+    path('user/<int:pk>/user_delete/', UserProjectDeleteView.as_view(), name='user_delete'),
 ]

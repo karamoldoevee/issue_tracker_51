@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Добавить пользователя в проект{% endblock %}
+
+{% block menu %}
+    <li><a href="{% url 'webapp:user_view' %}">Пользователи в проектах</a></li>
+{% endblock %}
+
+{% block content %}
+    <h1>Добавить пользователя</h1>
+    <form method="POST" action="{% url 'webapp:user_add' %}">
+        {% include 'partial/issue_form.html' with button_text="Создать" %}
+    </form>
+{% endblock %}

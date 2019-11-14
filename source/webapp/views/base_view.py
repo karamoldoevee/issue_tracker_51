@@ -57,3 +57,6 @@ class CreateView(View):
 
     def form_invalid(self, form):
         return render(self.request, self.template_name, context={'form': form})
+
+class StatisticMixin:
+    pass

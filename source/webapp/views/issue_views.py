@@ -9,7 +9,7 @@ from webapp.models import Issue
 from django.db.models import Q
 from django.utils.http import urlencode
 
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.mixins import UserPassesTestMixin
 
 
@@ -68,18 +68,17 @@ class IndexView(ListView):
         return None
 
 
-
-
 class IssueView(DetailView):
 
     template_name = 'issue/issue.html'
 
     model = Issue
 
-class IssueCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
-    template_name = 'issue/create.html'
 
+class IssueCreateView(CreateView):
     model = Issue
+
+    template_name = 'issue/create.html'
 
     fields = ['summary', 'description', 'status', 'type', 'assigned_to']
 
@@ -96,7 +95,7 @@ class IssueCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         return reverse('webapp:issue_view', kwargs={'pk': self.object.pk})
 
 
-class issue_update_view(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class IssueUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Issue
 
     template_name = 'issue/update.html'
@@ -112,7 +111,8 @@ class issue_update_view(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
         return reverse('webapp:issue_view', kwargs={'pk': self.object.pk})
 
-class issue_delete_view(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+
+class IssueDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     template_name = 'issue/delete.html'
 

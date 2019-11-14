@@ -4,7 +4,7 @@
 
 {% block content %}
     <h1>Создать Задачу</h1>
-    {% if request.user.is_authenticated %}
+    {% if perms.webapp.add_issue %}
         <form method="POST" action="{% url 'webapp:issue_add' %}">
     {% else %}
 {#        {% url 'webapp:not_allowed' issue.pk %}#}

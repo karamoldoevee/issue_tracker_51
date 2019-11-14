@@ -2,7 +2,7 @@
 {% extends 'base.html' %}
 
 {% block menu %}
-    {% if request.user.is_authenticated %}
+    {% if request.user.is_authenticated%}
     <li><a href ="{% url 'webapp:issue_add' %}">Добавить Задачу</a></li>
     {% endif %}
     <li><a href="{% url 'webapp:status_view'  %}">Статусы</a></li>

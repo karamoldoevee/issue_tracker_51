@@ -1,7 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
-from webapp.models import Project
 
+from webapp.models import Project
+def get_admin():
+    return User.objects.get(username='admin').id
 
 class Profile(models.Model):
     user = models.OneToOneField(User, related_name='profile', on_delete=models.CASCADE, verbose_name='Пользователь')
@@ -23,13 +25,13 @@ class Profile(models.Model):
         verbose_name_plural = 'Профили'
 
 class Team(models.Model):
-    user = models.ForeignKey(User, related_name='team', on_delete=models.CASCADE, verbose_name='Пользователь')
+    user = models.ForeignKey(User, related_name='team', on_delete=models.CASCADE, verbose_name='Пользователь', default=get_admin)
 
     project = models.ForeignKey('webapp.Project', on_delete=models.PROTECT, verbose_name='Проект', related_name='team')
 
     work_started = models.DateTimeField(auto_now_add=True, verbose_name='Начало работы')
 
-    work_finished = models.DateTimeField(auto_now_add=True, verbose_name='Окончание работы')
+    work_finished = models.DateTimeField(auto_now_add=False, verbose_name='Окончание работы', blank=True, null=True, editable=True, default=None)
 
     def __str__(self):
         return self.user.get_full_name()

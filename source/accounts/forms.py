@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django import forms
 from django.core.exceptions import ValidationError
+from accounts.models import Team
 
 class UserCreationForm(forms.ModelForm):
     password = forms.CharField(label="Пароль", strip=False, widget=forms.PasswordInput)
@@ -142,3 +143,16 @@ class PasswordChangeForm(forms.ModelForm):
         model = User
 
         fields = ['password', 'password_confirm', 'old_password']
+
+class TeamForm(forms.ModelForm):
+    class Meta:
+        model = Team
+        fields = ['user', 'project', 'work_finished']
+        exclude = ['work_started']
+
+class TeamProjectForm(forms.ModelForm):
+    class Meta:
+        model = Team
+        fields = ['user']
+        exclude= ['project', 'work_started', 'work_finished']
+

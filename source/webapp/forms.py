@@ -1,6 +1,6 @@
 from django import forms
 
-from webapp.models import Issue,Status, Type, Project
+from webapp.models import Issue, Status, Type, Project
 from django.forms import Select
 
 
@@ -26,9 +26,11 @@ class TypeForm(forms.ModelForm):
         fields = ['name']
 
 class ProjectForm(forms.ModelForm):
+
+    team = forms.ModelChoiceField(widget=Select, required=False, empty_label=None, queryset=None)
     class Meta:
         model = Project
-        fields = ['name', 'description']
+        fields = ['name', 'description', 'team']
         exclude = ['created_at', 'updated_at']
 
 class SimpleSearchForm(forms.Form):

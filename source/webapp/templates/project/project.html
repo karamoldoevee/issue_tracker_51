@@ -29,13 +29,17 @@
         {% endfor %}
     </div>
     <h4>Над проектом работают:</h4>
-    <div class="user-list">
+        <div class="user-list">
         {% for user in project.team.all %}
-            <div class="issue">
-                <p>{{ user }}</p>
+            <div class="user">
+                    <p>{{ user }} <strong> Начал работу:</strong> {{ user.work_started|date:'d.m.Y H:i:s' }}</p>
+                    <p class="user-links">
+                        <a href="{% url 'webapp:user_add' project.pk %}">Добавить</a>
+                        <a href="{% url 'webapp:user_delete' project.pk %}">Удалить</a>
+                    </p>
             </div>
         {% empty %}
-            <p>Нету задач.</p>
+            <p>No comments yet.</p>
         {% endfor %}
     </div>
     {% if is_paginated %}

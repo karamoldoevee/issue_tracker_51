@@ -6,8 +6,6 @@ from webapp.models import Status
 
 
 
-
-
 class StatusView(ListView):
     template_name = 'status/status_view.html'
 
@@ -31,7 +29,7 @@ class StatusCreateView(CreateView):
         return reverse('webapp:status_view')
 
 
-class status_update_view(UpdateView):
+class StatusUpdateView(UpdateView):
     model = Status
 
     template_name = 'status/update_status.html'
@@ -42,7 +40,7 @@ class status_update_view(UpdateView):
         return reverse('webapp:status_view')
 
 
-class status_delete_view(DeleteView):
+class StatusDeleteView(DeleteView):
 
     template_name = 'status/delete_status.html'
 

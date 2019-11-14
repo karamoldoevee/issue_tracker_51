@@ -16,7 +16,9 @@ class ProfileAdmin(UserAdmin):
 class TeamInline(admin.StackedInline):
     model = Team
 
-    fields = ['user', 'project', 'work_started', 'work_finished']
+    fields = ['user', 'project', 'work_finished']
+
+    exclude = ['work_started']
 
 admin.site.unregister(User)
 admin.site.register(User, ProfileAdmin)

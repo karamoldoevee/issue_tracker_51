@@ -9,6 +9,7 @@ class IssueAdmin(admin.ModelAdmin):
     exclude = []
     readonly_fields = ['created_at']
 
+
 admin.site.register(Issue, IssueAdmin)
 admin.site.register(Status)
 admin.site.register(Type)

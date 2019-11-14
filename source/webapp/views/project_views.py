@@ -1,4 +1,4 @@
-
+from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -7,7 +7,6 @@ from webapp.forms import SimpleSearchForm
 from webapp.models import Project
 from django.db.models import Q
 from django.utils.http import urlencode
-
 
 
 
@@ -78,11 +77,17 @@ class ProjectCreateView(CreateView):
 
     fields = ['name', 'description']
 
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.team.user = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
+
     def get_success_url(self):
         return reverse('webapp:project_index')
 
 
-class project_update_view(UpdateView):
+class ProjectUpdateView(UpdateView):
     model = Project
 
     template_name = 'project/update.html'
@@ -92,7 +97,7 @@ class project_update_view(UpdateView):
     def get_success_url(self):
         return reverse('webapp:project_view', kwargs={'pk': self.object.pk})
 
-class project_delete_view(DeleteView):
+class ProjectDeleteView(DeleteView):
 
     template_name = 'project/delete.html'
 
@@ -101,6 +106,7 @@ class project_delete_view(DeleteView):
     context_object_name = 'project'
 
     success_url = reverse_lazy('webapp:project_index')
+
 
 
 

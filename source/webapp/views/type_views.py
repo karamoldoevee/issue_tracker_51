@@ -6,7 +6,6 @@ from webapp.models import Type
 
 
 
-
 class TypeView(ListView):
     template_name = 'type/type_view.html'
 
@@ -30,7 +29,7 @@ class TypeCreateView(CreateView):
         return reverse('webapp:type_view')
 
 
-class type_update_view(UpdateView):
+class TypeUpdateView(UpdateView):
     model = Type
 
     template_name = 'type/update_type.html'
@@ -40,7 +39,7 @@ class type_update_view(UpdateView):
     def get_success_url(self):
         return reverse('webapp:type_view')
 
-class type_delete_view(DeleteView):
+class TypeDeleteView(DeleteView):
 
     template_name = 'type/delete_type.html'
 

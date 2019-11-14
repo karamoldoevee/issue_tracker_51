@@ -7,7 +7,7 @@
     {% if perms.webapp.add_issue %}
         <form method="POST" action="{% url 'webapp:issue_add' %}">
     {% else %}
-{#        {% url 'webapp:not_allowed' issue.pk %}#}
+        {% url 'webapp:not_allowed' issue.pk %}
     {% endif %}
         {% include 'partial/issue_form.html' with button_text="Создать" %}
     </form>

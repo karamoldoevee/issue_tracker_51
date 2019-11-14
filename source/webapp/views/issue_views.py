@@ -75,12 +75,16 @@ class IssueView(DetailView):
     model = Issue
 
 
-class IssueCreateView(CreateView):
+class IssueCreateView(PermissionRequiredMixin, CreateView):
     model = Issue
 
     template_name = 'issue/create.html'
 
     fields = ['summary', 'description', 'status', 'type', 'assigned_to']
+
+    permission_required = 'webapp.add_issue'
+
+    permission_denied_message = "Доступ запрещён"
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
@@ -95,7 +99,7 @@ class IssueCreateView(CreateView):
         return reverse('webapp:issue_view', kwargs={'pk': self.object.pk})
 
 
-class IssueUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class IssueUpdateView(PermissionRequiredMixin, UpdateView):
     model = Issue
 
     template_name = 'issue/update.html'
@@ -103,6 +107,10 @@ class IssueUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     fields = ['summary', 'description', 'status', 'type']
 
     context_object_name = 'issue'
+
+    permission_required = 'webapp.change_issue'
+
+    permission_denied_message = "Доступ запрещён"
 
     def test_func(self):
         return self.request.user.username
@@ -112,7 +120,7 @@ class IssueUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return reverse('webapp:issue_view', kwargs={'pk': self.object.pk})
 
 
-class IssueDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+class IssueDeleteView(PermissionRequiredMixin, DeleteView):
 
     template_name = 'issue/delete.html'
 
@@ -121,6 +129,10 @@ class IssueDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     context_object_name = 'issue'
 
     success_url = reverse_lazy('webapp:index')
+
+    permission_required = 'webapp.delete_issue'
+
+    permission_denied_message = "Доступ запрещён"
 
     def test_func(self):
         return self.request.user.username

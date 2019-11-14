@@ -8,10 +8,14 @@
 {% endblock %}
 
 {% block content %}
+    {% if perms.webapp.delete_issue %}
     <h1>Вы уверены что хотите удалить "{{ issue }}"?</h1>
     <form method="POST" action="{% url 'webapp:issue_delete' issue.pk %}" class="text-center">
         {% csrf_token %}
         <p><input type="submit" value="Да"></p>
         <p><a href="{% url 'webapp:issue_view' issue.pk %}">Нет</a></p>
     </form>
+    {% else %}
+        {% url 'webapp:not_allowed' issue.pk %}
+    {% endif %}
 {% endblock %}

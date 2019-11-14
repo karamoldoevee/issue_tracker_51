@@ -3,8 +3,13 @@
 {% block title %}Создать Проект{% endblock %}
 
 {% block content %}
-    <h1>Создать Проект</h1>
-    <form method="POST" action="{% url 'webapp:project_add' %}">
-        {% include 'partial/issue_form.html' with button_text="Создать" %}
-    </form>
+    {% if perms.webapp.add_project %}
+        <h1>Создать Проект</h1>
+        <form method="POST" action="{% url 'webapp:project_add' %}">
+            {% include 'partial/issue_form.html' with button_text="Создать" %}
+        </form>
+    {% else %}
+        {% url 'webapp:not_allowed' issue.pk %}
+    {% endif %}
+
 {% endblock %}

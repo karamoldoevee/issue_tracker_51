@@ -9,7 +9,11 @@
 
 {% block content %}
     <h1>Обновить Проект</h1>
-    <form method="POST" action="{% url 'webapp:project_update' project.pk %}">
-        {% include 'partial/issue_form.html' with button_text=" Обновить" %}
-    </form>
+    {% if perms.webapp.change_project %}
+        <form method="POST" action="{% url 'webapp:project_update' project.pk %}">
+            {% include 'partial/issue_form.html' with button_text=" Обновить" %}
+        </form>
+    {% else %}
+        {% url 'webapp:not_allowed' issue.pk %}
+    {% endif %}
 {% endblock %}

@@ -5,10 +5,10 @@
 {% block content %}
     <h1>Создать Задачу</h1>
     {% if perms.webapp.add_issue %}
-        <form method="POST" action="{% url 'webapp:issue_add' %}">
+        <form method="POST" action="{% url 'webapp:issue_add' %}">\
+                {% include 'partial/issue_form.html' with button_text="Создать" %}
+        </form>
     {% else %}
         {% url 'webapp:not_allowed' issue.pk %}
     {% endif %}
-        {% include 'partial/issue_form.html' with button_text="Создать" %}
-    </form>
 {% endblock %}

@@ -7,10 +7,14 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Вы уверены что хотите удалить "{{ project }}"?</h1>
-    <form method="POST" action="{% url 'webapp:project_delete' project.pk %}" class="text-center">
-        {% csrf_token %}
-        <p><input type="submit" value="Да"></p>
-        <p><a href="{% url 'webapp:project_view' project.pk %}">Нет</a></p>
-    </form>
+    {% if perms.webapp.delete_project %}
+        <h1>Вы уверены что хотите удалить "{{ project }}"?</h1>
+        <form method="POST" action="{% url 'webapp:project_delete' project.pk %}" class="text-center">
+            {% csrf_token %}
+            <p><input type="submit" value="Да"></p>
+            <p><a href="{% url 'webapp:project_view' project.pk %}">Нет</a></p>
+        </form>
+    {% else %}
+        {% url 'webapp:not_allowed' issue.pk %}
+    {% endif %}
 {% endblock %}

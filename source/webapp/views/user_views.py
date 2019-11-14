@@ -1,3 +1,5 @@
+from django.contrib.auth.mixins import PermissionRequiredMixin
+
 from accounts.models import Team
 from django.urls import reverse, reverse_lazy
 
@@ -16,7 +18,7 @@ class UserProjectView(ListView):
     def get_queryset(self):
         return Team.objects.all()
 
-class UserProjectCreateView(CreateView):
+class UserProjectCreateView(PermissionRequiredMixin, CreateView):
     template_name = 'user/project_user_add.html'
 
     model = Team
@@ -26,8 +28,12 @@ class UserProjectCreateView(CreateView):
     def get_success_url(self):
         return reverse('webapp:user_view')
 
+    permission_required = 'accounts.add_team'
 
-class UserProjectUpdateView(UpdateView):
+    permission_denied_message = "Доступ запрещён"
+
+
+class UserProjectUpdateView(PermissionRequiredMixin, UpdateView):
     model = Team
 
     template_name = 'user/project_user_update.html'
@@ -37,7 +43,11 @@ class UserProjectUpdateView(UpdateView):
     def get_success_url(self):
         return reverse('webapp:user_view')
 
-class UserProjectDeleteView(DeleteView):
+    permission_required = 'accounts.change_team'
+
+    permission_denied_message = "Доступ запрещён"
+
+class UserProjectDeleteView(PermissionRequiredMixin, DeleteView):
 
     template_name = 'user/project_user_delete.html'
 
@@ -46,3 +56,7 @@ class UserProjectDeleteView(DeleteView):
     context_object_name = 'user'
 
     success_url = reverse_lazy('webapp:user_view')
+
+    permission_required = 'accounts.delete_team'
+
+    permission_denied_message = "Доступ запрещён"

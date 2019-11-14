@@ -35,8 +35,8 @@
                 {% if user.work_finished == None %}
                     <p>{{ user }} <strong> Начал работу:</strong> {{ user.work_started|date:'d.m.Y H:i:s' }}</p>
                     <p class="user-links">
-{#                        <a href="{% url 'webapp:user_add' project.team.user.pk %}">Добавить</a>#}
-{#                        <a href="{% url 'webapp:user_delete' project.team.user.pk %}">Удалить</a>#}
+                        <a href="{% url 'webapp:user_add' %}">Добавить</a>
+                        <a href="{% url 'webapp:user_delete' user.pk %}">Удалить</a>
                     </p>
                 {% else %}
                 {% endif %}

@@ -9,7 +9,7 @@
             {% include 'partial/issue_form.html' with button_text="Создать" %}
         </form>
     {% else %}
-        {% url 'webapp:not_allowed' issue.pk %}
+        {% url 'webapp:not_allowed' project.pk %}
     {% endif %}
 
 {% endblock %}

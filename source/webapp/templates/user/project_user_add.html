@@ -8,7 +8,11 @@
 
 {% block content %}
     <h1>Добавить пользователя</h1>
-    <form method="POST" action="{% url 'webapp:user_add' %}">
-        {% include 'partial/issue_form.html' with button_text="Создать" %}
-    </form>
+    {% if perms.accounts.add_team %}
+        <form method="POST" action="{% url 'webapp:user_add' %}">
+            {% include 'partial/issue_form.html' with button_text="Создать" %}
+        </form>
+    {% else %}
+        {% url 'webapp:not_allowed' user.pk %}
+    {% endif %}
 {% endblock %}

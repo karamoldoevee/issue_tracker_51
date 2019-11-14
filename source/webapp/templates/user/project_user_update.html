@@ -9,7 +9,11 @@
 
 {% block content %}
     <h1>Обновить Статус</h1>
-    <form method="POST" action="{% url 'webapp:user_update' user.pk %}">
-        {% include 'partial/issue_form.html' with button_text="Update" %}
-    </form>
+    {% if perms.accounts.change_team %}
+        <form method="POST" action="{% url 'webapp:user_update' user.pk %}">
+            {% include 'partial/issue_form.html' with button_text="Update" %}
+        </form>
+    {% else %}
+        {% url 'webapp:not_allowed' user.pk %}
+    {% endif %}
 {% endblock %}

@@ -14,6 +14,6 @@
             {% include 'partial/issue_form.html' with button_text=" Обновить" %}
         </form>
     {% else %}
-        {% url 'webapp:not_allowed' issue.pk %}
+        {% url 'webapp:not_allowed' project.pk %}
     {% endif %}
 {% endblock %}

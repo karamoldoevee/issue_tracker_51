@@ -4,18 +4,17 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from webapp.forms import SimpleSearchForm
+from webapp.mixins import StatisticsMixin
 from webapp.models import Issue
 
 from django.db.models import Q
 from django.utils.http import urlencode
 
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
 
-
-class IndexView(ListView):
+class IndexView(StatisticsMixin, ListView):
     template_name = 'issue/index.html'
 
     context_object_name = 'issues'
@@ -68,7 +67,7 @@ class IndexView(ListView):
         return None
 
 
-class IssueView(DetailView):
+class IssueView(StatisticsMixin, DetailView):
 
     template_name = 'issue/issue.html'
 

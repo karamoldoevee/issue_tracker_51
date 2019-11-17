@@ -6,7 +6,7 @@ from webapp.models import Status
 
 
 
-class StatusView(ListView):
+class StatusView(StatisticsMixin, ListView):
     template_name = 'status/status_view.html'
 
     context_object_name = 'statuses'

@@ -6,7 +6,7 @@ from webapp.models import Type
 
 
 
-class TypeView(ListView):
+class TypeView(StatisticsMixin, ListView):
     template_name = 'type/type_view.html'
 
     context_object_name = 'types'

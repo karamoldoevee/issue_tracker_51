@@ -5,13 +5,14 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from webapp.forms import SimpleSearchForm
+from webapp.mixins import StatisticsMixin
 from webapp.models import Project
 from django.db.models import Q
 from django.utils.http import urlencode
 
 
 
-class ProjectIndexView(ListView):
+class ProjectIndexView(StatisticsMixin, ListView):
     template_name = 'project/index.html'
 
     context_object_name = 'projects'
@@ -64,7 +65,7 @@ class ProjectIndexView(ListView):
         return None
 
 
-class ProjectView(DetailView):
+class ProjectView(StatisticsMixin, DetailView):
 
     template_name = 'project/project.html'
 

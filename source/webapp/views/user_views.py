@@ -5,8 +5,10 @@ from django.urls import reverse, reverse_lazy
 
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
+from webapp.mixins import StatisticsMixin
 
-class UserProjectView(ListView):
+
+class UserProjectView(StatisticsMixin, ListView):
     template_name = 'user/project_user_view.html'
 
     context_object_name = 'users'
